@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Register Programs</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/webjars/AdminLTE/3.0.0/plugins/fontawesome-free/css/all.min.css">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet"
+        href="/webjars/AdminLTE/3.0.0/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/webjars/AdminLTE/3.0.0/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+
+        <div th:replace="organiser/fragments/navbar :: header"></div>
+        <div th:replace="organiser/fragments/sidenav :: mySidebar"></div>
+
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Register New Program</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/organiser/dashboard">Home</a></li>
+                                <li class="breadcrumb-item active"><a href="/programcreate">ProgamView</a></li>
+                                <li class="breadcrumb-item active">Register New
+                                    Program</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="card card-primary">
+                        <form method="post" th:action="@{/programcreate}" th:object="${program}" enctype="multipart/form-data">
+                            <div class="card-body">
+                                <div class="row">
+                                    <!-- right side -->
+                                    <div class="col-sm-10">
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <label>Program Title</label> <input type="text" id="programTitle" class="form-control" maxlength="12"
+                                                   th:field="*{name}" placeholder="Enter program name" onkeyup="handleTitleValidation()">
+												   <small class="text-danger" style="display: block;">Program title cannot be blank. </small>
+												   <small class="text-danger" id="errormessage_7letters" style="display: block;">Program title must not contain more than 12 letters.</small>
+                                                   <small class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Program Description</label> <input type="text" id="programDesc"
+                                                    class="form-control" th:field="*{description}" placeholder="Enter description" onkeyup="handleDescriptionValidation()" minlength="15" maxlength="30">
+													<small class="text-danger" style="display: block;">Program description cannot be blank. </small>
+													<small class="text-danger" style="display: block;">Program description must have at least 15 characters and maximum of 30 characters.</small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="program-duration">Program Duration:</label>
+                                                <div class="input-group">
+                                                    <select id="program-duration" th:field="*{duration}" class="form-control">
+                                                        <option value="1">1 Month</option>
+                                                        <option value="3">3 Months</option>
+                                                        <option value="6">6 Months</option>
+                                                        <option value="12">12 Months</option>
+                                                        <option value="custom">Custom</option>
+                                                    </select>
+                                                    <div class="input-group-append">
+                                                        <input type="text" id="custom-duration" name="custom-duration" class="form-control" placeholder="Custom Duration" style="display: none;">
+                                                        <button id="add-custom-button" class="btn btn-primary" style="display: none;width: 200px; height: 38px;">Add Custom</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="courses">Courses</label>
+                                                <select th:field="*{courses}" multiple id="course">
+                                                    <option th:each="course : ${courselist}" th:text="${course.courseName}" th:value="${course.courseId}"></option>
+                                                </select>
+                                                <small  class="text-danger" style="display: block;">Please select at least one Course.</small>
+                                            </div>
+                                            
+           									<div class="form-group">
+											<label>Upload Program photo</label> <input type="file" class="form-control"
+												name="image_input" 
+												placeholder="Upload Program's photo" accept=".jpeg,.jpg,.png,.gif"> 
+										</div>
+                                    <span th:if="${programErrors != null}" class="text-danger">
+                                <ul>
+                                    <li th:each="error : ${programErrors.allErrors}" th:text="${error.defaultMessage}"></li>
+                                </ul>
+                            </span>        
+
+                                        </div>
+
+                                    </div>
+
+                                    <!-- right side -->
+
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Create</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div th:replace="organiser/fragments/navbar :: footer"></div>
+
+
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- REQUIRED SCRIPTS -->
+
+    <!-- jQuery -->
+    <script src="/webjars/AdminLTE/3.0.0/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/webjars/AdminLTE/3.0.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- InputMask -->
+    <script src="/webjars/AdminLTE/3.0.0/plugins/moment/moment.min.js"></script>
+    <script src="/webjars/AdminLTE/3.0.0/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script
+        src="/webjars/AdminLTE/3.0.0/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/webjars/AdminLTE/3.0.0/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/webjars/AdminLTE/3.0.0/dist/js/demo.js"></script>
+    <script>
+        $.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
+            icons: {
+                time: 'far fa-clock',
+                date: 'far fa-calendar',
+                up: 'fas fa-arrow-up',
+                down: 'fas fa-arrow-down',
+                previous: 'fas fa-chevron-left',
+                next: 'fas fa-chevron-right',
+                today: 'far fa-calendar-check-o',
+                clear: 'far fa-trash',
+                close: 'far fa-times'
+            }
+        });
+
+        $('#datetimepicker1').datetimepicker({
+            format: 'DD/MM/YYYY h:mm A'
+        });
+    </script>
+
+    <script>
+        function addCustomDuration() {
+            var customInput = document.getElementById("custom-duration");
+            var customButton = document.getElementById("add-custom-button");
+            var customValue = customInput.value.trim();
+
+            if (customValue !== "") {
+                var dropdown = document.getElementById("program-duration");
+
+                // Check if the custom value is already in the dropdown
+                var existingOption = Array.from(dropdown.options).find(option => option.value === customValue);
+
+                if (!existingOption) {
+                    // Add the custom value to the dropdown
+                    var newOption = document.createElement("option");
+                    newOption.value = customValue;
+                    newOption.text = customValue;
+                    dropdown.add(newOption);
+                }
+
+                // Select the custom value in the dropdown
+                dropdown.value = customValue;
+
+                // You can add additional logic here to send the custom value to the server for database storage
+                sendToServer(customValue);
+
+                // Clear the custom input field
+                customInput.value = "";
+
+                // Hide the custom input field after adding to the dropdown
+                customInput.style.display = "none";
+
+                // Hide the add custom button after adding to the dropdown
+                customButton.style.display = "none";
+            }
+        }
+
+        document.getElementById("program-duration").addEventListener("change", function () {
+            var selectedValue = this.value;
+            var customInput = document.getElementById("custom-duration");
+            var customButton = document.getElementById("add-custom-button");
+
+            if (selectedValue === "custom") {
+                customInput.style.display = "inline";
+                customButton.style.display = "inline"; // Show the button
+            } else {
+                customInput.style.display = "none";
+                customButton.style.display = "none"; // Hide the button
+            }
+        });
+    </script>
+	<script>
+		function handleTitleValidation(){
+			var programTitle = document.getElementById("programTitle");
+			
+			var errorMessage = programTitle.nextElementSibling;
+			var validLettersMessage = programTitle.nextElementSibling.nextElementSibling; // Get the next sibling element
+			
+			        if (programTitle.value.trim() !== "") {
+			            errorMessage.style.display = "none"; // Show error message
+			        } else {
+			            errorMessage.style.display = "block"; // Hide error message
+			        }
+					
+					if(programTitle.value.length <= 12){
+						validLettersMessage.style.display = "none";
+					}else{
+						validLettersMessage.style.display = "block";
+					}
+						
+		}
+		
+		function handleDescriptionValidation(){
+			var descInput = document.getElementById("programDesc");
+			var blankErrorMessage = descInput.nextElementSibling;
+			var errorMessage = descInput.nextElementSibling.nextElementSibling;
+			
+			if (descInput.value.trim() !== "") {
+			    blankErrorMessage.style.display = "none"; // Show error message
+		    } else {
+				blankErrorMessage.style.display = "block"; // Hide error message
+			}
+			
+			if(descInput.value.length <= 15 || descInput.value.length > 30){
+				errorMessage.classList.add("text-danger");
+				errorMessage.style.display = "block";
+			}else{
+				errorMessage.style.display = "none";
+			}
+			
+			if(descInput.value.length === 30){
+				errorMessage.style.display = "block";
+				errorMessage.classList.remove("text-danger");
+				errorMessage.classList.add("text-success");
+			}
+		}
+		
+		document.getElementById("course").addEventListener("change", function(){
+			var selectedOptions = this.selectedOptions;
+			var errorMessage = this.nextElementSibling;
+			
+			if(selectedOptions.length > 0){
+				errorMessage.style.display = "none";
+			}else{
+				errorMessage.style.display = "block";
+			}
+		})
+	</script>
+</body>
+
+</html>

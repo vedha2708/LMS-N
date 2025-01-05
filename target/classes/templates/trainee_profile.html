@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title> UserProfile </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/responsive.css">
+   <link rel="stylesheet" href="profile.css">
+  <link rel="stylesheet" class="js-color-style" href="css/colors/color-1.css">
+  <link rel="stylesheet" class="js-glass-style" href="./css/glass.css" disabled>
+ 
+</head>
+<body>
+    
+  <!-- page loader start -->
+  <div class="page-loader js-page-loader">
+    <div></div>
+  </div>
+  <!-- page loader end -->
+
+    <!--main warpper start-->
+<div class="main-wrapper">
+
+  <!-- header start-- -->
+  <header class="header">
+    <div class="container">
+      <div class="header-main d-flex justify-content-between align-items-center">
+       <div class="header-logo">
+        <a href="./index.html">LMS <span>Portal</span></a>
+       </div>
+       <button type="button" class="header-hamburger-btn js-header-manu-toggler">
+        <span></span>
+       </button>
+       <div class="header-backdrop js-header-backdrop"></div>
+       <nav class="header-menu js-header-manu">
+        <button type="button " class="header-close-btn js-header-manu-toggler">
+          <i class="fas fa-times"></i>
+        </button>
+        <ul class="menu">
+          <li class="menu-item"><a href="/userdashboard">Home</a></li>
+          <!-- <li class="menu-item"><a href="./courses.html">Courses</a></li> -->
+          <li class="menu-item menu-item menu-item-has-children">
+            <a href="#" class="js-toggle-sub-menu">registration / login<i class="fas fa-chevron-down"></i></a>
+            <ul class="sub-menu js-sub-menu">
+              <li class="sub-menu-item"><a href="log-in.html">Log in</a></li>
+              <li class="sub-menu-item"><a href="sign-up.html">Sign up</a></li>
+
+            </ul>
+          </li>
+          <li class="menu-item"><a href="./contact.html">Contact</a></li>
+          <li class="menu-item"><a href="./organiser/logout">logout</a></li>
+        </ul>
+       </nav>
+      </div>
+    </div>
+  </header>
+  <!-- header end-- -->
+
+    <!-- breadcrumb start -->
+    <div class="breadcrumb-nav">
+      <div class="container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="/userdashboard">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">profile</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <!-- breadcrumb end -->
+
+
+    <hr>
+    <div class="container ">
+        <div class="row">
+            <div class="col-sm-10">
+                <h1>Profile Page</h1>
+            </div>
+            <div class="col-sm-2 ,"><a href="/users" class="pull-right"><img title="profile image"
+                        class="img-circle img-responsive" src="https://bisag-n.gov.in/images/logos/bisag_logo.png"></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3"><!--left col-->
+
+
+                <div class="text-center">
+                    <img th:src="@{/user-files/+*{photo}}" class="avatar img-circle img-thumbnail"
+                        alt="avatar">
+                    <h6>Upload a different photo...</h6>
+                    <input type="file" class="text-center center-block file-upload">
+                </div>
+                </hr><br>
+
+
+
+
+            </div><!--/col-3-->
+            <div class="col-sm-9">
+              <nav class="course-tabs">
+                <div class="nav nav-tabs border-0" id="nav-tab" role="tablist">
+            <!-- <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Profile Details</a></li>
+                <li><a data-toggle="tab" href="#messages">Documents</a></li>
+                <li><a data-toggle="tab" href="#settings">Privacy Setting </a></li>
+            </ul> -->
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="course-curriculum" aria-selected="true">Profile Details</button>
+            <button class="nav-link"  data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="course-description" aria-selected="false">ID Proof</button>
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="course-instructor" aria-selected="false">Privacy settings</button>
+            
+               </div>
+            </nav>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="home">
+                        <hr>
+                        <form class="form" th:object="${user}" th:action="@{/editTrainee}" method="post" enctype="multipart/form-data">
+                            <input type="hidden" th:field="*{id}">
+                            <div class="form-group">    
+                                
+
+
+                                <div class="col-xs-6">
+                                    <label for="organizationId">
+                                        <h4>Organization-Id</h4>
+                                    </label>
+                                    <input type="text" class="form-control" th:field="*{organizationId}" title="enter your organization id if any."  >
+                                </div>
+                            </div>
+                         
+
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="Full_name">
+                                        <h4>Full_Name</h4>
+                                    </label>
+                                    <input type="text" class="form-control" th:field="*{name}" id="fullname"
+                                        placeholder="enter fullname" title="enter your fullname if any." >
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="email">
+                                        <h4>Email-Id</h4>
+                                    </label>
+                                    <input type="email" class="form-control" th:field="*{email}" id="email"
+                                        placeholder="you@email.com" title="enter your email." >
+                                </div>
+                            </div>
+
+           
+                            <div class="form-group">
+                                <div class="col-xs-6">
+                                    <label for="mobile">
+                                        <h4>Phone_No</h4>
+                                    </label>
+                                    <input type="text" class="form-control" th:field="*{phoneno}" id="mobile"
+                                        placeholder="enter mobile number" title="enter your mobile number if any." >
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="Birthdate">
+                                        <h4>Birth_Date</h4>
+                                    </label>
+                                    <input type="date" class="form-control" th:field="*{dob}" id="Birthdate"
+                                        placeholder="Birthdate" title="enter your Birthdate." >
+                                </div>
+                            </div>
+
+
+                        
+
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="Address_1">
+                                        <h4>Current Address</h4>
+                                    </label>
+                                    <textarea type="text" class="form-control" th:field="*{residentialaddress}" id="Address_1"
+                                        placeholder="Enter your Current Address" title="enter your Address_1." ></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="Address_2">
+                                        <h4>Permenent Address</h4>
+                                    </label>
+                                    <textarea type="" class="form-control" th:field="*{permenantaddress}" id="Address_2"
+                                        placeholder="Enter your Permenent Address" title="enter your Address_2." ></textarea>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="Distric">
+                                        <h4>Distric</h4>
+                                    </label>
+                                    <input type="text"  class="form-control"
+                                        th:field="*{district}" id="Distric" placeholder="Distric" title="enter your Distric." >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="State">
+                                        <h4>State</h4>
+                                    </label>
+                                    <input type="text"  class="form-control"  th:field="*{state}" id="State" placeholder="State" title="enter your State." >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="Pincode">
+                                        <h4>Pincode</h4>
+                                    </label>
+                                    <input type="text"  class="form-control"
+                                        th:field="*{pincode}" id="Pincode" placeholder="Pincode" title="enter your Pincode." >
+                                </div>
+                            </div>
+
+
+                         <div class="form-group">
+
+                                
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="About_me">
+                                        <h4>About_me</h4>
+                                    </label>
+                                    <textarea type="text" class="form-control"  th:field="*{aboutme}" id="About_me"
+                                        placeholder="Write About Yourself" title="enter your About_me." ></textarea>
+                                </div>
+                            </div>
+
+                             
+                        
+                          
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="Twitter">
+                                        <h4>Twitter</h4>
+                                    </label>
+                                    <input type="text"  class="form-control"
+                                        name="Twitter" id="Twitter" placeholder="Share your twitter profile_link" title="enter your Twitter." >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="Instagram">
+                                        <h4>Instagram</h4>
+                                    </label>
+                                    <input type="text"  class="form-control"
+                                        name="Instagram" id="Instagram" placeholder=" Share your Instagram profile-link" title="enter your Instagram." >
+                                </div>
+                            </div>
+
+                            
+
+                      
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <br>
+                                    <button class="btn btn-theme" type="submit"><i
+                                            class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                                    <button class="btn btn-theme" type="reset"><i class="glyphicon glyphicon-repeat" ></i>
+                                        Reset</button>
+                                </div>
+                            </div>
+
+                          <hr>
+
+                      </div><!--/tab-pane-->
+                     <div class="tab-pane" id="messages">
+
+                        <h2></h2>
+
+                        <hr>
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="Aadharcard_No">
+                                        <h4>Aadharcard_No</h4>
+                                    </label>
+                                    <input type="text" class="form-control"  name="*{aadharcardno}"
+                                        placeholder="Aadharcard_No" title="enter your Aadharcard-No " >
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="Aadharcard_File">
+                                        <h4>Aadharcard_File</h4>
+                                    </label>
+                                    <input type="File" class="form-control" accept=".pdf" name="Aadharcard_File" id="Aadharcard_File"
+                                        placeholder="Aadharcard_File" title="enter your Aadharcard_File if any." >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="Enrollment_No">
+                                        <h4>Enrollment_No</h4>
+                                    </label>
+                                    <input type="text" class="form-control" name="enrollmentno" id="Enrollment_No"
+                                        placeholder="enter Enrollment_No" title="enter your Enrollment_No if any." >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-6">
+                                    <label for="Id card photo">
+                                        <h4>Id_card_photo</h4>
+                                    </label>
+                                    <input type="File" accept="image/x-png,image/gif,image/jpeg"  class="form-control" name="Idcard_photo" 
+                                        placeholder="enter Id card photo" title="enter your Id card photo if any." >
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-xs-6">
+                                    <label for="ABC_Id">
+                                        <h4>ABC_Id</h4>
+                                    </label>
+                                    <input type="ABC_Id" class="form-control" th:field="*{abcid}" id="ABC_Id"
+                                        placeholder="ABC_Id" title="enter your ABC_Id." >
+                                </div>
+                            </div>
+                          
+                      
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <br>
+                                    <button class="btn btn-theme" type="submit"><i
+                                            class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                                    <button class="btn btn-theme" type="reset"><i class="glyphicon glyphicon-repeat"></i>
+                                        Reset</button>
+                                </div>
+                            </div>
+
+                     </div><!--/tab-pane-->
+                     <div class="tab-pane" id="settings">
+                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                            <label for="vehicle1">Show your profile to logged-in users</label><br>
+                            <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                            <label for="vehicle2">Show courses you're talking on your profile page</label><br>
+                            
+                            <button class="btn btn-theme" type="submit"><i
+                                class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                          
+                        
+                     </div>
+                    </form>
+                </div><!--/tab-pane-->
+            </div><!--/tab-content-->
+
+        </div><!--/col-9-->
+    </div><!--/row-->
+
+
+
+  <!-- footer start -->
+  <footer>
+    <div class="footer">
+      <div class="footer-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-lg-3">
+            <div class="footer-item">
+              <h3 class="footer-logo"><span>LMS </span>Portal</h3>
+              <ul>
+                <li><a href="#">about</a></li>
+               
+                <li><a href="#">Careers</a></li>
+               
+                <li><a href="#">Blog</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="footer-item">
+              <h3>Quick Links</h3>
+              <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Privacy & Policies</a></li>
+                <li><a href="#">Help</a></li>
+                <li><a href="#">Terms and Conditions</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="footer-item">
+              <h3>more</h3>
+              <ul>
+                <li><a href="#">help and support</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="footer-item">
+              <h3>Get in Touch with us</h3>
+              <ul>
+                <li><a href="https://www.instagram.com/vedant_patel09/"><i class="fab fa-instagram social-icon"></i> instagram</a></li>
+                <li><a href="https://www.linkedin.com/in/vedant-patel-b6119a231/"><i class="fab fa-linkedin social-icon"></i> linkedin</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p class="m-0 py-4 text-center">copyright &copy;2024 <a href="https://github.com/CME0467/LMS">LMS TEAM</a></p>
+      </div>
+    </div>
+  </footer>
+  <!-- footer end -->
+
+</div>
+    <!--main warpper end-->
+
+
+
+
+
+
+  <!-- style switcher start -->
+<div class="style-switcher js-style-switcher">
+  <div class="style-switcher-toggler js-style-switcher-toggler">
+    <i class="fas fa-cog"></i>
+  </div>
+  <h3>Style Switcher</h3>
+  <div class="style-switcher-item">
+    <p class="mb-2">Theme Colors</p>
+    <!-- theme colors  -->
+    <div class="theme-colors js-theme-colors">
+      <button type="button" data-js-theme-color="color-1" class="js-theme-color-item color-1"></button>
+      <button type="button" data-js-theme-color="color-2" class="js-theme-color-item color-2"></button>
+      <button type="button" data-js-theme-color="color-3" class="js-theme-color-item color-3"></button>
+      <button type="button" data-js-theme-color="color-4" class="js-theme-color-item color-4"></button>
+      <button type="button" data-js-theme-color="color-5" class="js-theme-color-item color-5"></button>
+    </div>
+  </div>
+  <div class="style-switcher-item">
+    <div class="form-check form-switch">
+      <input class="form-check-input js-dark-mode" type="checkbox" role="switch" id="dark-mode">
+      <label class="form-check-label" for="dark-mode">Dark Mode</label>
+    </div>
+  </div>
+  <div class="style-switcher-item">
+    <div class="form-check form-switch">
+      <input class="form-check-input js-glass-effect" type="checkbox" role="switch" id="glass-effect">
+      <label class="form-check-label" for="glass-effect">Glass Effect</label>
+    </div>
+  </div>
+</div>
+<!-- style switcher end -->
+
+<script src="js/bootstrap.bundle.min.js"></script>  
+<script src="js/main.js"></script>
+<script src="js/profile.js"></script>
+</body>
+</html>

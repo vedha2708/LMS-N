@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<title>Topic</title>
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet"
+	href="/webjars/AdminLTE/3.0.0/plugins/fontawesome-free/css/all.min.css">
+<!-- IonIcons -->
+<link rel="stylesheet"
+	href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- DataTables -->
+<link rel="stylesheet"
+	href="/webjars/AdminLTE/3.0.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet"
+	href="/webjars/AdminLTE/3.0.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+
+<!-- Theme style -->
+<link rel="stylesheet"
+	href="/webjars/AdminLTE/3.0.0/dist/css/adminlte.min.css">
+<!-- Google Font: Source Sans Pro -->
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+	rel="stylesheet">
+	
+</head>
+
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+
+		<div th:replace="organiser/fragments/navbar :: header"></div>
+		<div th:replace="organiser/fragments/sidenav :: mySidebar"></div>
+		<div class="content-wrapper">
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>Topic</h1>
+						</div>
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item"><a href="/organiser/dashboard">Home</a></li>
+								<li class="breadcrumb-item active">Topic</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+							 <form th:action="@{/organiser/deletetopic}" >
+								<div class="card-header" >
+								<div class="dropdown">
+											<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Actions
+											</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												<a class="dropdown-item"  th:href="@{/organiser/newtopic}" >Register New Topic</a>
+												<input type="submit" class="dropdown-item" value="Delete Selected topic" style="margin-bottom: 10px;">
+											</div>
+								</div>
+								</div>
+								<div class="card-body">
+									<table id="examList" class="table table-bordered table-striped">
+										<thead>
+											<tr>
+												<th>Select</th>
+												<th>TopicId</th>
+												<th>TopicName</th>
+												<th>TopicDescription</th>
+												<th>Transcript File</th>
+												<th>Pdf file</th>
+												<th>VideoFile</th>
+												<th>Action</th>
+
+											</tr>
+										</thead>
+										<tbody>
+											
+											<tr th:each="topic : ${topics}">
+											<td><input type="checkbox" class="checkbox" name="cid"
+													th:value="${topic.topicId}"></td>
+
+												<td th:text="${topic.sequenceNo}">TopicId</td>
+												<td th:text="${topic.topicName}">TopicName</td>
+												<td th:text="${topic.topicDescrpition}">TopicDescription</td>
+												<td><a th:href="@{${topic.getFiles}}"> <i class="fa fa-file-pdf" style="font-size: 26px"></i>
+													</a></td>
+												<td><a th:href="@{${topic.getFile}}"> <i
+														class="fa fa-file-pdf" style="font-size: 26px"></i> <!-- Assuming you're using Font Awesome for icons -->
+												</a></td>
+												<td><a 
+													th:href="@{${topic.getVideo}}"> <i class="fas fa-video"></i>
+													
+												</a></td>
+												<td>
+														   <!-- <span class="badge badge-primary" th:if="${assignment.status == true}">Approved</span> -->
+															<!-- <span class="badge badge-warning" th:unless="${assignment.status == true}">Approved</span>  -->
+															<a class="text-success ml-3" th:href="@{/organiser/topic/edit(id=${topic.sequenceNo})}"><i class="fa fa-pen"></i></a>
+														</td>
+											</tr>
+
+										</tbody>
+										<tfoot>
+
+										</tfoot>
+									</table>
+								</div>
+								<!-- /.card-body -->
+							</form>
+							<!-- /.card -->
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</div>
+				</div>
+				<!-- /.container-fluid -->
+			</section>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="videoModal" tabindex="-1" role="dialog"
+			aria-labelledby="videoModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-lg"
+				role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="videoModalLabel">Video</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<!-- Embedded video -->
+						<div class="embed-responsive embed-responsive-16by9">
+							<iframe class="embed-responsive-item" id="videoFrame"
+								allowfullscreen></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div th:replace="organiser/fragments/navbar :: footer"></div>
+
+
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- REQUIRED SCRIPTS -->
+
+	<!-- jQuery -->
+	<script src="/webjars/AdminLTE/3.0.0/plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script
+		src="/webjars/AdminLTE/3.0.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- DataTables -->
+	<script
+		src="/webjars/AdminLTE/3.0.0/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script
+		src="/webjars/AdminLTE/3.0.0/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+	<script
+		src="/webjars/AdminLTE/3.0.0/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="/webjars/AdminLTE/3.0.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<!-- AdminLTE App -->
+	<!-- AdminLTE -->
+	<script src="/webjars/AdminLTE/3.0.0/dist/js/adminlte.js"></script>
+
+	<script>
+    $(function () {
+        $('#examList').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+</script>
+<script>
+	$(document).ready(function() {
+    // Handler for click event on video icon
+    $('a[data-toggle="modal"]').on('click', function(event) {
+        event.preventDefault(); // Prevent the default link behavior
+        
+        // Get the video URL from the link href attribute
+        var videoUrl = $(this).attr('href');
+        
+        // Set the video frame source to the video URL
+        $('#videoFrame').attr('src', videoUrl);
+        
+        // Show the video modal
+        $('#videoModal').modal('show');
+    });
+
+    // Handler for closing the modal
+    $('#videoModal').on('hidden.bs.modal', function() {
+        // Reset the video frame source when the modal is closed
+        $('#videoFrame').attr('src', '');
+    });
+});
+	
+</script>
+
+</body>
+</html>

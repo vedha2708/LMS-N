@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+<style>
+.nav-sidebar .nav-treeview {
+	display: none;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.nav-sidebar .nav-treeview .nav-item {
+	width: auto;
+}
+
+.nav-sidebar .nav-treeview .nav-link {
+	padding-left: 15px;
+	font-size: 14px;
+	color: #6c757d;
+}
+
+.nav-sidebar .nav-treeview .nav-link:hover {
+	color: #007bff;
+}
+
+.nav-sidebar .nav-treeview .nav-item:hover>.nav-link {
+	background-color: rgba(0, 123, 255, 0.1);
+}
+
+.nav-sidebar .nav-treeview .nav-item .nav-link {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 10px;
+}
+
+.nav-sidebar .nav-treeview .nav-item .nav-link i {
+	margin-right: 5px;
+}
+</style>
+</head>
+
+<div th:fragment="mySidebar">
+	<aside class="main-sidebar sidebar-dark-primary elevation-4">
+		<!-- Brand Logo -->
+		<a th:href="@{/organiser/dashboard}" class="brand-link d-block">
+		
+		 <span
+			class="brand-text font-weight-light d-block text-center"><b>BISAG-N</b></span>
+		</a>
+
+		<!-- Sidebar -->
+		<div class="sidebar">
+			<!-- Sidebar user panel (optional) -->
+			<div class="user-panel mt-3 pb-3 mb-3">
+				<div class="info text-center text-white d-block">Hello Admin</div>
+			</div>
+
+			<!-- Sidebar Menu -->
+			<nav class="mt-2">
+				<ul class="nav nav-pills nav-sidebar flex-column"
+					data-widget="treeview" role="menu" data-accordion="false">
+					<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+					<li class="nav-item"><a href="/organiser/dashboard"
+						class="nav-link"> <i class="nav-icon fas fa-th"></i>
+							<p>Dashboard</p>
+					</a></li>
+					
+					
+				<li class="nav-item has-treeview" sec:authorize="hasAuthority('ROLE_superadmin')" >
+					<a class="nav-link">
+							<i class="fa fa-landmark nav-icon"></i> 
+							<p>
+								 Roles<i class="fa fa-angle-left right"></i>
+							</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item"><a th:href="@{/superadmin/assignroles}"
+							class="nav-link"> Assign Roles</a></li>
+					</ul>
+				</li>
+						
+
+				<li class="nav-item has-treeview" sec:authorize="hasAnyAuthority('ROLE_vieworganization','ROLE_addorganization','ROLE_superadmin')" >
+						<a href="#" class="nav-link">
+							<i class="fa fa-building nav-icon"></i>
+							<p>
+								Organization<i class="fa fa-angle-left right"></i>
+							</p>
+					    </a>
+						<ul class="nav nav-treeview">
+							<li class="nav-item"><a href="/organiser/organization"
+								class="nav-link"> Registered Organization </a></li>
+							
+						</ul>
+				</li>
+				
+				<li class="nav-item has-treeview" sec:authorize="hasAnyAuthority('ROLE_viewnodalofficer','ROLE_addnodalofficer','ROLE_superadmin')">
+					<a href="#" class="nav-link">
+							<i class="fas fa-code"></i>
+							<p>
+								Nodal Ofiicers <i class="right fa fa-angle-left"></i>
+							</p>
+					</a>
+					<ul class="nav nav-treeview">
+							<li class="nav-item"><a href="/organiser/nodal" class="nav-link"> <i
+									class="fa fa-circle-o nav-icon"></i>
+									<p>Registered Nodal Officers</p></a></li>
+									</ul>
+				</li>
+				
+				
+				<!--//program-->
+				<li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_viewprogram','ROLE_addprogram','ROLE_superadmin')">
+					<a href="$"
+						class="nav-link"> <i class="nav-icon fa fa-desktop"></i>
+							<p>Program</p><i class="fa fa-angle-left right"></i>
+					</a>
+
+					<ul class="nav nav-treeview">
+						<li class="nav-item"><a href="/programview" class="nav-link"> <i
+								class="fa fa-circle-o nav-icon"></i>
+								<p>Registered Program</p></a>
+						</li>
+
+
+								<!--<li class="nav-item"><a href="/organiser/course/new" class="nav-link"> <i
+									class="fa fa-circle-o nav-icon"></i>
+									<p>Add Course</p></a></li>
+									<li class="nav-item"><a href="#" class="nav-link"> <i
+										class="fa fa-circle-o nav-icon"></i>
+										<p>Add Module</p></a></li>-->
+					</ul>
+				</li>
+						
+						
+
+					<li class="nav-item has-treeview" sec:authorize="hasAnyAuthority('ROLE_viewcourse','ROLE_addcourse','ROLE_superadmin')">
+						<a href="#" class="nav-link">
+							<i class="fa fa-graduation-cap"></i>
+							<p>
+								Courses <i class="right fa fa-angle-left"></i>
+							</p>
+						</a>
+							<ul class="nav nav-treeview">
+							<li class="nav-item"><a href="/organiser/course" class="nav-link"> <i
+									class="fa fa-circle-o nav-icon"></i>
+									<p>Registered Courses</p></a></li>
+							</ul>
+					</li>
+
+					<li class="nav-item has-treeview" sec:authorize="hasAnyAuthority('ROLE_viewmodule','ROLE_addmodule','ROLE_superadmin')">
+						<a href="/organiser/module" class="nav-link">
+							<i class="fas fa-code"></i>
+							<p>
+								Modules <i class="right fa fa-angle-left"></i>
+							</p>
+					    </a>
+						<ul class="nav nav-treeview">
+							<li class="nav-item"><a href="/organiser/module" class="nav-link"> <i
+									class="fa fa-circle-o nav-icon"></i>
+									<p>Registered Modules</p></a></li>
+						</ul>
+					</li>
+
+									
+					<li class="nav-item has-treeview" sec:authorize="hasAnyAuthority('ROLE_viewtopic','ROLE_addtopic', 'ROLE_superadmin')" >
+						<a href="" class="nav-link">
+							<i class="fa fa-sitemap"></i>
+							<p>
+								Topics <i class="right fa fa-angle-left"></i>
+							</p>
+					    </a>
+						<ul class="nav nav-treeview" >		
+						<li class="nav-item">
+							<a href="/organiser/topic" class="nav-link">
+								<i class="fa fa-circle-o nav-icon"></i>
+								<p>Registered Topics</p>
+							</a>
+						</li>
+						</ul>
+					</li>
+							<li class="nav-item has-treeview" sec:authorize="hasAnyAuthority('ROLE_superadmin')" >
+						<a href="" class="nav-link">
+							<i class="fa fa-sitemap"></i>
+							<p>
+								Assignment <i class="right fa fa-angle-left"></i>
+							</p>
+					    </a>
+						<ul class="nav nav-treeview" >		
+						<li class="nav-item">
+							<a href="/organiser/Assignment" class="nav-link">
+								<i class="fa fa-circle-o nav-icon"></i>
+								<p>Upload Assignment</p>
+							</a>
+						</li>
+						</ul>
+					</li>
+						
+					
+						<!-- <ul class="nav nav-treeview">
+							<li class="nav-item"><a href="/organiser/topic" class="nav-link"> <i
+									class="fa fa-circle-o nav-icon"></i>
+									<p>Topics List</p></a></li>
+							<li class="nav-item"><a href="#" class="nav-link"> <i
+									class="fa fa-circle-o nav-icon"></i>
+									<p>Quiz</p></a></li>
+							<li class="nav-item"><a href="#" class="nav-link"> <i
+									class="fa fa-circle-o nav-icon"></i>
+									<p>Question Bank</p></a></li>
+							<li class="nav-item"><a href="#" class="nav-link"> <i
+									class="fa fa-circle-o nav-icon"></i>
+									<p>Assignments</p></a></li>
+						</ul> -->
+					<li class="nav-item has-treeview"><a href="#" class="nav-link">
+							<i class="fa fa-users"></i>
+							<p>
+								User <i class="right fa fa-angle-left"></i>
+							</p>
+					</a>
+						<ul class="nav nav-treeview">
+							<li class="nav-item"><a href="/organiser/user" class="nav-link"> <i
+									class="fa fa-circle-o nav-icon"></i>
+									<p>Registered Users</p></a></li>
+							<li class="nav-item"><a href="#" class="nav-link"> <i
+									class="fa fa-circle-o nav-icon"></i>
+									<p>User Enrolled Program</p></a></li>
+							<!-- Add the rest of the user-related options -->
+						</ul></li>
+
+
+
+					<li class="nav-item has-treeview"><a href="#"
+						class="nav-link"> <i class="nav-icon fas fa-th"></i>
+							<p>
+								Exams <i class="right fas fa-angle-left"></i>
+							</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item"><a href="/organiser/exams" class="nav-link"> <i
+								class="fa fa-circle-o nav-icon"></i>
+								<p>View Exam</p></a></li>
+						<li class="nav-item"><a href="/organiser/exams/create" class="nav-link"> <i
+								class="fa fa-circle-o nav-icon"></i>
+								<p>Create Exam</p></a></li>
+						<!-- Add the rest of the user-related options -->
+					</ul>
+				
+				
+				
+				</li>
+
+				</ul>
+			</nav>
+			<!-- /.sidebar-menu -->
+		</div>
+		<!-- /.sidebar -->
+		<!-- /.sidebar-menu -->
+	</aside>
+</div>
+</html>

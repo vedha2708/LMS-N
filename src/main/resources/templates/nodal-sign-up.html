@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title> Sign Up </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/responsive.css">
+  <link rel="stylesheet" class="js-color-style" href="css/colors/color-1.css">
+  <link rel="stylesheet" class="js-glass-style" href="./css/glass.css" disabled>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+
+  <style>
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .error-message {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+    
+  <!-- page loader start -->
+  <div class="page-loader js-page-loader">
+    <div></div>
+  </div>
+  <!-- page loader end -->
+
+    <!--main warpper start-->
+<div class="main-wrapper">
+
+  <!-- header start-- -->
+  <header class="header">
+    <div class="container">
+      <div class="header-main d-flex justify-content-between align-items-center">
+       <div class="header-logo">
+        <a href="./index.html">LMS <span>Portal</span></a>
+       </div>
+       <button type="button" class="header-hamburger-btn js-header-manu-toggler">
+        <span></span>
+       </button>
+       <div class="header-backdrop js-header-backdrop"></div>
+       <nav class="header-menu js-header-manu">
+        <button type="button " class="header-close-btn js-header-manu-toggler">
+          <i class="fas fa-times"></i>
+        </button>
+        <ul class="menu">
+          <li class="menu-item"><a href="/organizationdashboard">Home</a></li>
+          <!-- <li class="menu-item"><a href="./courses.html">Courses</a></li> -->
+          <!-- <li class="menu-item menu-item menu-item-has-children">
+            <a href="#" class="js-toggle-sub-menu">registration / login<i class="fas fa-chevron-down"></i></a>
+            <ul class="sub-menu js-sub-menu">
+              <li class="sub-menu-item"><a href="log-in.html">Log in</a></li>
+              <li class="sub-menu-item"><a href="sign-up.html">Sign up</a></li>
+
+            </ul> -->
+          </li>
+          <li class="menu-item"><a href="./contact.html">Contact</a></li>
+        </ul>
+       </nav>
+      </div>
+    </div>
+  </header>
+  <!-- header end-- -->
+
+    <!-- breadcrumb start -->
+    <div class="breadcrumb-nav">
+      <div class="container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="/organizationdashboard">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Sign Up</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <!-- breadcrumb end -->
+
+
+
+
+    <!-- signup section start -->
+    <section class="signup-section section-padding">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-7 col-lg-6 col-xl-5">
+            <div class="signup-from box">
+              <h2 class="form-title text-center">Create Account For Nodal Officer</h2>
+              <form th:action="@{/organiser/nodal/register}" method="post">
+                <!-- <div class="form-group">
+                  <label for="organizationSelect">Organization</label>
+                  <select id="organizationSelect" class="form-control" required>
+                    <option></option>
+                    <option>Ganpat University-1</option>
+                    <option>GLS</option>
+                    <option>Nirma University</option>
+                    <option>JG College</option>
+                    <option>LMS Team</option>
+                  </select>
+                </div> -->
+                <div class="form-group">
+                  <label for="fullName">Full Name Of Nodal Officer</label>
+                  <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="email">Nodal Officer Email-ID</label>
+                  <input type="email" id="email" name="email" class="form-control" required>
+                  <div id="emailValidation" style="display: none; color: red;">Please enter a valid email address</div>
+                </div>
+                
+                
+                <!-- <div class="form-group">
+                  <label for="dob">Date of Birth</label>
+                  <input type="date" id="dob" class="form-control" required>
+                  <div id="dobValidation" style="display: none; color: red;">Please enter a valid date of birth</div>
+                </div> -->
+                <!-- <div class="form-group">
+                  <label for="profilePic">Profile Photo</label>
+                  <input type="file" class="form-control" id="profilePic" accept="image/jpeg, image/jpg, image/png">
+                  <div id="fileSizeError" class="error-message" style="display: none;">File size exceeds 3MB.</div>
+                  <div id="fileTypeError" class="error-message" style="display: none;">Please select a valid file type (JPEG, JPG, PNG).</div>
+                </div> -->
+                <div class="form-group">
+                  <input type="text" id="contactNo" name="contactno" class="form-control" placeholder="Contact no" required>
+                  <div id="contactNoValidation" class="error-message" style="display: none; color: red;">Please enter a valid contact number</div>
+                </div>
+                <div class="form-group">
+                  <label for="designation_of_nodal_officer">Designation Of Nodal Officer</label>
+                  <input type="text" id="fullName"  name="designation" class="form-control" required>
+                </div>
+                <!-- <div class="form-group">
+                  <label for="password">Password</label>
+                  <input id="password" type="password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="confirmPassword">Confirm Password</label>
+                  <input id="confirmPassword" type="password" class="form-control" required>
+                  <div id="passwordMismatch" style="display: none; color: red;">Passwords do not match</div>
+                </div> -->
+
+                
+                <button type="submit" class="btn btn-block btn-theme btn-form">Sign Up</button>
+                <!-- <p class="text-center mt-4 mb-0 ">Sign up as organization <a href="./organization_signup.html">Sign Up</a></p> -->
+                <!-- <p class="text-center mt-4 mb-0 ">Already have an account? <a href="./log-in.html">Log In</a></p> -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- signup section end -->
+
+
+
+  <!-- footer start -->
+  <footer>
+    <div class="footer">
+      <div class="footer-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-lg-3">
+            <div class="footer-item">
+              <h3 class="footer-logo"><span>LMS </span>Portal</h3>
+              <ul>
+                <li><a href="#">about</a></li>
+               
+                <li><a href="#">Careers</a></li>
+               
+                <li><a href="#">Blog</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="footer-item">
+              <h3>Quick Links</h3>
+              <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Privacy & Policies</a></li>
+                <li><a href="#">Help</a></li>
+                <li><a href="#">Terms and Conditions</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="footer-item">
+              <h3>more</h3>
+              <ul>
+                <li><a href="#">help and support</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="footer-item">
+              <h3>Get in Touch with us</h3>
+              <ul>
+                <li><a href="https://www.instagram.com/vedant_patel09/"><i class="fab fa-instagram social-icon"></i> instagram</a></li>
+                <li><a href="https://www.linkedin.com/in/vedant-patel-b6119a231/"><i class="fab fa-linkedin social-icon"></i> linkedin</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p class="m-0 py-4 text-center">copyright &copy;2024 <a href="https://github.com/CME0467/LMS">LMS TEAM</a></p>
+      </div>
+    </div>
+  </footer>
+  <!-- footer end -->
+
+</div>
+    <!--main warpper end-->
+
+
+
+
+
+  <!-- style switcher start -->
+<div class="style-switcher js-style-switcher">
+  <div class="style-switcher-toggler js-style-switcher-toggler">
+    <i class="fas fa-cog"></i>
+  </div>
+  <h3>Style Switcher</h3>
+  <div class="style-switcher-item">
+    <p class="mb-2">Theme Colors</p>
+    <!-- theme colors  -->
+    <div class="theme-colors js-theme-colors">
+      <button type="button" data-js-theme-color="color-1" class="js-theme-color-item color-1"></button>
+      <button type="button" data-js-theme-color="color-2" class="js-theme-color-item color-2"></button>
+      <button type="button" data-js-theme-color="color-3" class="js-theme-color-item color-3"></button>
+      <button type="button" data-js-theme-color="color-4" class="js-theme-color-item color-4"></button>
+      <button type="button" data-js-theme-color="color-5" class="js-theme-color-item color-5"></button>
+    </div>
+  </div>
+  <div class="style-switcher-item">
+    <div class="form-check form-switch">
+      <input class="form-check-input js-dark-mode" type="checkbox" role="switch" id="dark-mode">
+      <label class="form-check-label" for="dark-mode">Dark Mode</label>
+    </div>
+  </div>
+  <div class="style-switcher-item">
+    <div class="form-check form-switch">
+      <input class="form-check-input js-glass-effect" type="checkbox" role="switch" id="glass-effect">
+      <label class="form-check-label" for="glass-effect">Glass Effect</label>
+    </div>
+  </div>
+</div>
+<!-- style switcher end -->
+
+<!-- This logic is for Image uploadation -->
+<script>
+  document.getElementById('profilePic').addEventListener('change', function() {
+    var fileInput = this;
+    var fileSize = fileInput.files[0].size; // Size in bytes
+    var fileType = fileInput.files[0].type; // File type
+
+    // Check file size (3MB limit)
+    if (fileSize > 3 * 1024 * 1024) {
+      document.getElementById('fileSizeError').style.display = 'block';
+      fileInput.value = ''; // Clear the input
+      return;
+    } else {
+      document.getElementById('fileSizeError').style.display = 'none';
+    }
+
+    // Check file type (JPEG, JPG, PNG)
+    if (!fileType.includes('image/jpeg') && !fileType.includes('image/jpg') && !fileType.includes('image/png')) {
+      document.getElementById('fileTypeError').style.display = 'block';
+      fileInput.value = ''; // Clear the input
+      return;
+    } else {
+      document.getElementById('fileTypeError').style.display = 'none';
+    }
+  });
+</script>
+
+
+
+<!-- This logic is for organization selection -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#organizationSelect').select2({
+      placeholder: "Select an organization",
+      allowClear: true
+    });
+  });
+</script>
+
+
+<!-- For Confirm Password -->
+<script>
+  document.getElementById('confirmPassword').addEventListener('keyup', function () {
+    var password = document.getElementById('password').value;
+    var confirmPassword = document.getElementById('confirmPassword').value;
+    var passwordMismatch = document.getElementById('passwordMismatch');
+    
+    if (password === confirmPassword) {
+      passwordMismatch.style.display = 'none';
+    } else {
+      passwordMismatch.style.display = 'block';
+    }
+  });
+</script>
+
+<!-- validation For mail -->
+<script>
+  document.getElementById('email').addEventListener('input', function () {
+    var emailInput = document.getElementById('email');
+    var emailValidation = document.getElementById('emailValidation');
+    if (emailInput.validity.valid) {
+      emailValidation.style.display = 'none';
+    } else {
+      emailValidation.style.display = 'block';
+    }
+  });
+</script>
+
+
+<!-- DOB validation -->
+
+<script>
+  document.getElementById('dob').addEventListener('input', function () {
+    var dobInput = document.getElementById('dob');
+    var dobValidation = document.getElementById('dobValidation');
+    var currentDate = new Date();
+    var selectedDate = new Date(dobInput.value);
+    
+    // Define minimum age criteria (18 years)
+    var minAge = 18;
+    var minDate = new Date(currentDate.getFullYear() - minAge, currentDate.getMonth(), currentDate.getDate());
+
+    if (selectedDate <= currentDate && selectedDate >= minDate) {
+      dobValidation.style.display = 'none';
+    } else {
+      dobValidation.style.display = 'block';
+    }
+  });
+</script>
+
+<!-- phone number validation -->
+<script>
+  document.getElementById('contactNo').addEventListener('input', function () {
+    var contactNoInput = document.getElementById('contactNo');
+    var contactNoValidation = document.getElementById('contactNoValidation');
+    var contactNoPattern = /^\d{10}$/; // Pattern for a 10-digit phone number
+    
+    if (contactNoPattern.test(contactNoInput.value)) {
+      contactNoValidation.style.display = 'none'; // Hide error message if valid
+    } else {
+      contactNoValidation.style.display = 'block'; // Show error message if invalid
+    }
+  });
+</script>
+
+
+<script src="js/bootstrap.bundle.min.js"></script>  
+<script src="js/main.js"></script>
+</body>
+</html>

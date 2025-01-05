@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Program</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/webjars/AdminLTE/3.0.0/plugins/fontawesome-free/css/all.min.css">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet"
+        href="/webjars/AdminLTE/3.0.0/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/webjars/AdminLTE/3.0.0/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+
+        <div th:replace="organiser/fragments/navbar :: header"></div>
+        <div th:replace="organiser/fragments/sidenav :: mySidebar"></div>
+
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Edit Program</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/organiser/dashboard">Home</a></li>
+                                <li class="breadcrumb-item active"><a href="/programview">Program View</a></li>
+                                <li class="breadcrumb-item active">Edit Program</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="card card-primary">
+                        <form method="post" th:action="@{/organiser/program/edit}" th:object="${program}">
+                            <div class="card-body">
+                                <div class="row">
+                                    <!-- right side -->
+                                    <div class="col-sm-10">
+                                        <div class="col-sm-8">
+                                            <div class="form-group">
+                                                <label>Program Title</label> <input type="text" id="programTitle" class="form-control" maxlength="7" onkeyup="handleTitleValidation()"
+                                                   th:field="*{name}" placeholder="Enter program name">
+												   <small class="text-danger" style="display: block;">Program title cannot be blank </small>
+												    <small class="text-danger" id="errormessage_7letters" style="display: block;">program title must not contain more than 7 letters</small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Program Description</label> <input type="text" id="programDesc"
+                                                    class="form-control" th:field="*{description}" placeholder="Enter description" minlength="15" maxlength="30" onkeyup="handleDescriptionValidation()">
+													<small class="text-danger" style="display: block;">Program description cannot be blank </small>
+													<small class="text-danger" style="display: block;">Program description must have atleast 15 characters and maximum 30 characters</small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="program-duration">Program Duration:</label>
+                                                <div class="input-group">
+                                                    <select id="program-duration" th:field="*{duration}" class="form-control">
+                                                        <option value="1">1 Month</option>
+                                                        <option value="3">3 Months</option>
+                                                        <option value="6">6 Months</option>
+                                                        <option value="12">12 Months</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" th:field="*{id}" />
+
+                                            <div class="form-group">
+                                                <label for="courses">Courses</label>
+                                                <select id="courses" name="selectedCourses" multiple class="form-control" >
+                                                    <option th:each="course : ${courselist}" th:text="${course.courseName}" th:value="${course.courseId}"></option>
+													
+                                                </select>
+												<small  class="text-danger" style="display: block;">Please select atleast one course</small>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- right side -->
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Edit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div th:replace="organiser/fragments/navbar :: footer"></div>
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- REQUIRED SCRIPTS -->
+
+    <!-- jQuery -->
+    <script src="/webjars/AdminLTE/3.0.0/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/webjars/AdminLTE/3.0.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="/webjars/AdminLTE/3.0.0/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/webjars/AdminLTE/3.0.0/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/webjars/AdminLTE/3.0.0/dist/js/demo.js"></script>
+    <!-- Script to initialize select2 -->
+    <script>
+        $(document).ready(function () {
+            $('#courses').select2();
+        });
+    </script>
+	
+	<script>
+		  
+			function handleTitleValidation(){
+				var programTitle = document.getElementById("programTitle");
+				
+				var errorMessage = programTitle.nextElementSibling;
+				var validLettersMessage = programTitle.nextElementSibling.nextElementSibling; // Get the next sibling element
+				
+				        if (programTitle.value.trim() !== "") {
+				            errorMessage.style.display = "none"; // Show error message
+				        } else {
+				            errorMessage.style.display = "block"; // Hide error message
+				        }
+						
+						if(programTitle.value.length <= 7){
+							validLettersMessage.style.display = "none";
+						}else{
+							validLettersMessage.style.display = "block";
+						}
+							
+			}
+			
+			function handleDescriptionValidation(){
+				var descInput = document.getElementById("programDesc");
+				var blankErrorMessage = descInput.nextElementSibling;
+				var errorMessage = descInput.nextElementSibling.nextElementSibling;
+				
+				if (descInput.value.trim() !== "") {
+				    blankErrorMessage.style.display = "none"; // Show error message
+			    } else {
+					blankErrorMessage.style.display = "block"; // Hide error message
+				}
+				
+				if(descInput.value.length < 15 || descInput.value.length > 30){
+					errorMessage.classList.add("text-danger");
+					errorMessage.style.display = "block";
+				}else{
+					errorMessage.style.display = "none";
+				}
+				
+				if(descInput.value.length === 30){
+					errorMessage.style.display = "block";
+					errorMessage.classList.remove("text-danger");
+					errorMessage.classList.add("text-success");
+				}
+			}
+			document.getElementById("courses").addEventListener("change", function(){
+							var selectedOptions = this.selectedOptions;
+							var errorMessage = this.nextElementSibling;
+							
+							if(selectedOptions.length > 0){
+								errorMessage.style.display = "none";
+							}else{
+								errorMessage.style.display = "block";
+							}
+					})
+			
+			document.addEventListener("DOMContentLoaded", function(){
+						handleTitleValidation()
+						handleDescriptionValidation()
+			})
+		</script>
+</body>
+
+</html>

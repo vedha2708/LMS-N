@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<title>Create Assignment</title>
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet"
+	href="/webjars/AdminLTE/3.0.0/plugins/fontawesome-free/css/all.min.css">
+<!-- IonIcons -->
+<link rel="stylesheet"
+	href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Tempusdominus Bbootstrap 4 -->
+<link rel="stylesheet"
+	href="/webjars/AdminLTE/3.0.0/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<!-- Theme style -->
+<link rel="stylesheet"
+	href="/webjars/AdminLTE/3.0.0/dist/css/adminlte.min.css">
+<!-- Google Font: Source Sans Pro -->
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+	rel="stylesheet">
+</head>
+
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+
+		<div th:replace="organiser/fragments/navbar :: header"></div>
+		<div th:replace="organiser/fragments/sidenav :: mySidebar"></div>
+
+		<div class="content-wrapper">
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>Create Assignment</h1>
+						</div>
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item"><a href="/organiser/dashboard">Home</a></li>
+								<li class="breadcrumb-item active"><a
+									href="/organiser/assignment">View Assignment</a></li>
+								<li class="breadcrumb-item active">Create new Assignment
+									</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- Main content -->
+			<section class="content">
+				<div class="container-fluid">
+					<div class="card card-primary">
+						<form th:action="@{/registerAssignment}" method="post" th:object="${assignment}" enctype="multipart/form-data">
+							<div class="card-body">
+								<div class="row">
+									<!-- right side -->
+									<div class="col-sm-12 d-flex">
+										<div class="col-sm-8">
+										
+											<div class="col-sm-6">
+										
+											<div class="form-group">
+												<label>Assignment Name</label> <input type="text"
+													class="form-control" th:field="*{name}"
+													placeholder="Enter Assignment Name">
+											</div>
+											
+											<div class="form-group">
+												<label>Assignment Description</label> <input type="text"
+													class="form-control" th:field="*{assdes}"
+													placeholder="Enter Assignment Description">
+											</div>
+											
+											<div class="form-group">
+												<label for="topics">Topic :</label>
+												<select th:field="*{topic}" multiple style="margin-left:12px;">
+													<option th:each="topic : ${topiclist}" th:text="${topic.topicName}" th:value="${topic.sequenceNo}"></option>
+												</select>
+											</div>
+											
+											<div class="form-group">
+												<label for="modules">Module: </label>
+												<select th:field="*{modules}"  multiple >
+													<option th:each="module : ${modulelist}" th:text="${module.moduleName}" th:value="${module.moduleId}"></option>
+												</select>
+											</div>
+											
+											
+											
+											
+										
+
+										</div>
+
+									</div>
+
+									<!-- right side -->
+									<!-- left side -->
+									<div class="col-sm-4" style="margin-left: 0px;">
+									
+									<div class="form-group">
+											<label>Marks</label> <input type="number"
+												class="form-control"
+												th:field="*{marks}" placeholder="Enter Marks" style="width: 100%; height: auto;" onblur="validateMarks()" min="1">
+										</div>
+											
+											
+										
+										  
+
+											
+											<div class="form-group">
+												<label for="due date">Due Date</label>
+												<input type="date" th:field="*{duedate}" class="form-control">
+											</div>
+										<div class="form-group">
+											<label>Upload Assignment</label> <input type="file" class="form-control"
+												name="uploadassignment"
+												placeholder="Upload Assignment File">
+										</div>
+										
+
+									</div>
+									<!--  left side-->
+								
+								</div>
+							</div>
+							<div class="card-footer">
+								<button type="submit" class="btn btn-primary">Create</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</section>
+		</div>
+		<div th:replace="organiser/fragments/navbar :: footer"></div>
+
+
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- REQUIRED SCRIPTS -->
+
+	<!-- jQuery -->
+	<script src="/webjars/AdminLTE/3.0.0/plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script
+		src="/webjars/AdminLTE/3.0.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- InputMask -->
+	<script src="/webjars/AdminLTE/3.0.0/plugins/moment/moment.min.js"></script>
+	<script
+		src="/webjars/AdminLTE/3.0.0/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+
+	<!-- Tempusdominus Bootstrap 4 -->
+	<script
+		src="/webjars/AdminLTE/3.0.0/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="/webjars/AdminLTE/3.0.0/dist/js/adminlte.min.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="/webjars/AdminLTE/3.0.0/dist/js/demo.js"></script>
+	<script>
+   function validateMarks(){
+    var numberInput = document.getElementById("marks").value;
+  if (numberInput < 1 || numberInput > 100) {
+    alert("Please enter a number between 1 and 100.");
+    return false;
+  }
+   }
+</script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<title>Create Course</title>
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet"
+	href="/webjars/AdminLTE/3.0.0/plugins/fontawesome-free/css/all.min.css">
+<!-- IonIcons -->
+<link rel="stylesheet"
+	href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Tempusdominus Bbootstrap 4 -->
+<link rel="stylesheet"
+	href="/webjars/AdminLTE/3.0.0/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<!-- Theme style -->
+<link rel="stylesheet"
+	href="/webjars/AdminLTE/3.0.0/dist/css/adminlte.min.css">
+<!-- Google Font: Source Sans Pro -->
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+	rel="stylesheet">
+</head>
+
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+
+		<div th:replace="organiser/fragments/navbar :: header"></div>
+		<div th:replace="organiser/fragments/sidenav :: mySidebar"></div>
+
+		<div class="content-wrapper">
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>Create Course</h1>
+						</div>
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item"><a href="/organiser/dashboard">Home</a></li>
+								<li class="breadcrumb-item active"><a
+									href="/organiser/course">View Course</a></li>
+								<li class="breadcrumb-item active">Create new Course
+									</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- Main content -->
+			<section class="content">
+				<div class="container-fluid">
+					<div class="card card-primary">
+						<form th:object="${course}" method="post" th:action="@{/createCourse}" enctype="multipart/form-data">
+							<div class="card-body">
+								<div class="row">
+									<!-- right side -->
+									<div class="col-sm-6">
+										<div class="col-sm-8">
+											<div class="form-group">
+												<label>Name</label> <input type="text" id="courseName" maxlength="7"
+													class="form-control" th:field="*{courseName}" onkeyup="handleNameValidation()"
+													placeholder="Enter Course Name">
+													<small class="text-danger" style="display: block;">Course name cannot be blank. </small>
+													<small class="text-danger" style="display: block;">Course name must not contain more than 15 letters.</small>
+											</div>
+											<div class="form-group">
+												<label>Abbreviation</label> <input type="text" id="courseAbv" onkeyup="handleAbbreviationValidation()" maxlength="15"
+													class="form-control" th:field="*{courseAbbrevation}"
+													placeholder="Enter Course Abbreviation">
+													<small class="text-danger" style="display: block;">Course abbreviation cannot be blank.</small>
+													<small class="text-danger" style="display: block;">Course abbreviation must not contain more than 15 letters.</small>
+											</div>
+											
+											
+				
+
+											<div class="form-group">
+												<label>Description</label> <textarea id="courseDesc"
+													class="form-control" th:field="*{courseDescription}" onkeyup="handleDescriptionValidation()"
+													placeholder="Enter Course Description" style="width: 350px; height: 100px;" minlength="15" maxlength="30"></textarea>
+													<small class="text-danger" style="display: block;">Course description cannot be blank </small>
+													<small class="text-danger" style="display: block;">Course description must have atleast 15 characters and maximum 30 characters</small>
+											</div>
+											<div class="form-group">
+												<label for="modules">Modules</label>
+												<select th:field="*{modules}" multiple id="modules">
+													<option th:each="module : ${modulelist}" th:text="${module.moduleName}" th:value="${module.moduleId}"></option>
+												</select>
+												<small  class="text-danger" style="display: block;">Please select at least one module</small>
+																									
+											</div>
+										<div class="form-group">
+											<label>Upload Course photo</label> <input type="file" class="form-control"
+												name="image_input" 
+												placeholder="Upload Course's photo" accept=".jpeg,.jpg,.png,.gif"> 
+										</div>
+<span th:if="${courseErrors != null}" class="text-danger">
+                                <ul>
+                                    <li th:each="error : ${courseErrors.allErrors}" th:text="${error.defaultMessage}"></li>
+                                </ul>
+                            </span>     
+										</div>
+
+									</div>
+
+									<!-- right side -->
+									
+								
+								</div>
+							</div>
+							<div class="card-footer">
+								<button type="submit" class="btn btn-primary">Create</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</section>
+		</div>
+		<div th:replace="organiser/fragments/navbar :: footer"></div>
+
+
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- REQUIRED SCRIPTS -->
+
+	<!-- jQuery -->
+	<script src="/webjars/AdminLTE/3.0.0/plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script
+		src="/webjars/AdminLTE/3.0.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- InputMask -->
+	<script src="/webjars/AdminLTE/3.0.0/plugins/moment/moment.min.js"></script>
+	<script
+		src="/webjars/AdminLTE/3.0.0/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+
+	<!-- Tempusdominus Bootstrap 4 -->
+	<script
+		src="/webjars/AdminLTE/3.0.0/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="/webjars/AdminLTE/3.0.0/dist/js/adminlte.min.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="/webjars/AdminLTE/3.0.0/dist/js/demo.js"></script>
+	<script>
+    $.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
+        icons: {
+            time: 'far fa-clock',
+            date: 'far fa-calendar',
+            up: 'fas fa-arrow-up',
+            down: 'fas fa-arrow-down',
+            previous: 'fas fa-chevron-left',
+            next: 'fas fa-chevron-right',
+            today: 'far fa-calendar-check-o',
+            clear: 'far fa-trash',
+            close: 'far fa-times'
+        } });
+
+    $('#datetimepicker1').datetimepicker({
+        format: 'DD/MM/YYYY h:mm A'
+    });
+</script>
+
+<script>
+		function handleNameValidation(){
+			var courseName = document.getElementById("courseName");
+			
+			var errorMessage = courseName.nextElementSibling;
+			var validLettersMessage = courseName.nextElementSibling.nextElementSibling; // Get the next sibling element
+			
+			        if (courseName.value.trim() !== "") {
+			            errorMessage.style.display = "none"; // Show error message
+			        } else {
+			            errorMessage.style.display = "block"; // Hide error message
+			        }
+					
+					if(courseName.value.length <= 15){
+						validLettersMessage.style.display = "none";
+					}else{
+						validLettersMessage.style.display = "block";
+					}
+						
+		}
+		
+		function handleAbbreviationValidation(){
+					var courseAbv = document.getElementById("courseAbv");
+					
+					var errorMessage = 	courseAbv.nextElementSibling;
+					var validLettersMessage = courseAbv.nextElementSibling.nextElementSibling; // Get the next sibling element
+					
+					        if (courseAbv.value.trim() !== "") {
+					            errorMessage.style.display = "none"; // Show error message
+					        } else {
+					            errorMessage.style.display = "block"; // Hide error message
+					        }
+							
+							if(	courseAbv.value.length < 15){
+								validLettersMessage.style.display = "none";
+							}else{
+								validLettersMessage.classList.remove("text-danger");
+								validLettersMessage.classList.add("text-success");
+								validLettersMessage.style.display = "block";
+							}
+								
+				}
+		
+		function handleDescriptionValidation(){
+			var courseDesc = document.getElementById("courseDesc");
+			var blankErrorMessage = courseDesc.nextElementSibling;
+			var errorMessage = 	courseDesc.nextElementSibling.nextElementSibling;
+			
+			if (courseDesc.value.trim() !== "") {
+			    blankErrorMessage.style.display = "none"; // Show error message
+		    } else {
+				blankErrorMessage.style.display = "block"; // Hide error message
+			}
+			
+			if(	courseDesc.value.length < 15 || courseDesc.value.length > 30){
+				errorMessage.classList.add("text-danger");
+				errorMessage.style.display = "block";
+			}else{
+				errorMessage.style.display = "none";
+			}
+			
+			if(courseDesc.value.length === 30){
+				errorMessage.style.display = "block";
+				errorMessage.classList.remove("text-danger");
+				errorMessage.classList.add("text-success");
+			}
+		}
+		
+		document.getElementById("modules").addEventListener("change", function(){
+			var selectedOptions = this.selectedOptions;
+			var errorMessage = this.nextElementSibling;
+			
+			if(selectedOptions.length > 0){
+				errorMessage.style.display = "none";
+			}else{
+				errorMessage.style.display = "block";
+			}
+		})
+	</script>
+</body>
+</html>

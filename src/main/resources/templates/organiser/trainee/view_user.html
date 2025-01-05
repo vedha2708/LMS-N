@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>View User</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/webjars/AdminLTE/3.0.0/plugins/fontawesome-free/css/all.min.css">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/webjars/AdminLTE/3.0.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/webjars/AdminLTE/3.0.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/webjars/AdminLTE/3.0.0/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+
+        <div th:replace="organiser/fragments/navbar :: header"></div>
+        <div th:replace="organiser/fragments/sidenav :: mySidebar"></div>
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>View User</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/organiser/dashboard">Home</a></li>
+                                <li class="breadcrumb-item"><a href="/registeredUsers">user</a></li>
+                                <li class="breadcrumb-item active">View User</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td> Name:</td>
+                                    <td th:text="${user.name}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Email:</td>
+                                    <td th:text="${user.email}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Organization:</td>
+                                    <td th:text="${organization}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Phone No:</td>
+                                    <td th:text="${user.phoneno}"></td>
+                                </tr>
+                                <tr>
+                                    <td> Date of Birth:</td>
+                                    <td th:text="${user.dob}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Residential Address:</td>
+                                    <td th:text="${user.residentialaddress}"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Permenant Address:</td>
+                                    <td th:text="${user.permenantaddress}"></td>
+                                </tr>
+                                <tr>
+                                    <td>District:</td>
+                                    <td th:text="${user.district}"></td>
+                                </tr>
+                                <tr>
+                                    <td>State:</td>
+                                    <td th:text="${user.state}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Pin Code:</td>
+                                    <td th:text="${user.pincode}"></td>
+                                </tr>
+                                <tr>
+                                    <td> Aadhar Card No:</td>
+                                    <td th:text="${user.aadharcardno}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Enrollment No:</td>
+                                    <td th:text="${user.enrollmentno}"></td>
+                                </tr>
+                                <tr>
+                                    <td> ABC ID:</td>
+                                    <td th:text="${user.abcid}"></td>
+                                </tr> 
+                                
+
+                            </table>
+										
+							
+							
+							
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+        <div th:replace="organiser/fragments/navbar :: footer"></div>
+
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- DataTables -->
+    <script src="/webjars/AdminLTE/3.0.0/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/webjars/AdminLTE/3.0.0/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/webjars/AdminLTE/3.0.0/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/webjars/AdminLTE/3.0.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="/webjars/AdminLTE/3.0.0/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/webjars/AdminLTE/3.0.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE -->
+    <script src="/webjars/AdminLTE/3.0.0/dist/js/adminlte.js"></script>
+  </body>
+
+</html>

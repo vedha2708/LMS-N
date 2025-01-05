@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+<title>Assigned Roles</title>
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet"
+	href="/webjars/AdminLTE/3.0.0/plugins/fontawesome-free/css/all.min.css">
+<!-- IonIcons -->
+<link rel="stylesheet"
+	href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Tempusdominus Bbootstrap 4 -->
+<link rel="stylesheet"
+	href="/webjars/AdminLTE/3.0.0/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<!-- Theme style -->
+<link rel="stylesheet"
+	href="/webjars/AdminLTE/3.0.0/dist/css/adminlte.min.css">
+<!-- Google Font: Source Sans Pro -->
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+	rel="stylesheet">
+</head>
+
+<body class="hold-transition sidebar-mini">
+	<div class="wrapper">
+
+		<div th:replace="organiser/fragments/navbar :: header"></div>
+		<div th:replace="organiser/fragments/sidenav :: mySidebar"></div>
+
+		<div class="content-wrapper">
+			<section class="content-header">
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h1>Assign Roles</h1>
+						</div>
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item"><a href="/organiser/dashboard">Home</a></li>
+								<li class="breadcrumb-item active">Assign Roles</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- Main content -->
+			<section class="content">
+				<div class="container-fluid">
+					<div class="card card-primary">
+						<form th:action="@{/superadmin/assignroles}" th:object="${admin}"
+							method="post">
+							<div class="card-body">
+								<div class="row">
+									<!-- right side -->
+									<div class="col-sm-10">
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label> Name</label> <input type="text" class="form-control"
+													th:field="*{name}"
+													placeholder="Enter  name">
+											</div>
+											<div class="form-group">
+												<label>Email</label> <input type="email"
+													class="form-control" th:field="*{email}"
+													placeholder="Enter email">
+											</div>
+											<div class="form-group">
+												<label>Password</label> <input type="password"
+													class="form-control" th:field="*{password}"
+													placeholder="Enter password">
+											</div>
+											<div class="form-group">
+												<label>Select Rights:</label> <select th:field="*{authorities}"
+													multiple required
+													style="width: 250px; height: 150px;">
+													<option th:each="role : ${roles}" th:text="${role.authority}" th:value="${role.id}"></option>		
+												<!--<option value="vieworganization">View Organization</option>
+													<option value="addorganization">Add Organization</option>
+													<option value="viewnodalofficer">View NodalOfficer</option>
+													<option value="addnodalofficer">Add NodalOfficer</option>
+													<option value="viewprogramme">View Programme</option>
+													<option value="addprogramme">Add Programme</option>
+													<option value="viewcourse">view Course</option>
+													<option value="addcourse">Add Course</option>
+													<option value="viewmodule">View Module</option>
+													<option value="addmodule">Add Module</option>
+													<option value="viewtopic">view Topic</option>
+													<option value="addtopic">Add Topic</option>
+													<option value="viewquesitionbank">View Quesition
+														Bank</option>
+													<option value="addquesitionbank">Add Quesition
+														Bank</option>
+													<option value="viewassignment">View Assignment</option>
+													<option value="addassignment">Add Assignment</option>
+													<option value="viewuser">View User</option>
+													<option value="adduser">Add User</option>-->
+												</select>
+											</div>
+
+
+										</div>
+
+									</div>
+
+									<!-- right side -->
+									<!-- left side -->
+									<!-- 		<div class="col-sm-4">
+										<div class="form-group">
+											<label>Address</label> <input type="text"
+												class="form-control"
+												name="Address" placeholder="Enter address">
+										</div>
+										<div class="form-group">
+											<label>City</label> <input type="text"
+											 class="form-control"
+											 name="city"
+												placeholder="Enter city">
+										</div>
+										<div class="form-group">
+											<label>State</label> <input type="text" class="form-control"
+												name="state"
+												placeholder="Enter state">
+										</div>
+										<div class="form-group">
+											<label>Country</label> <input type="text"
+												class="form-control" name="country" placeholder="Enter country">
+										</div>
+										<div class="form-group">
+											<label>Description</label>
+											<textarea class="form-control" rows="3"
+												name="description"
+												placeholder="Enter description"></textarea>
+										</div>
+
+									</div> -->
+									<!--  left side-->
+								</div>
+							</div>
+							<div class="card-footer">
+								<button type="submit" class="btn btn-primary">Create</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</section>
+		</div>
+		<div th:replace="organiser/fragments/navbar :: footer"></div>
+
+
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- REQUIRED SCRIPTS -->
+
+	<!-- jQuery -->
+	<script src="/webjars/AdminLTE/3.0.0/plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script
+		src="/webjars/AdminLTE/3.0.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- InputMask -->
+	<script src="/webjars/AdminLTE/3.0.0/plugins/moment/moment.min.js"></script>
+	<script
+		src="/webjars/AdminLTE/3.0.0/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+
+	<!-- Tempusdominus Bootstrap 4 -->
+	<script
+		src="/webjars/AdminLTE/3.0.0/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="/webjars/AdminLTE/3.0.0/dist/js/adminlte.min.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="/webjars/AdminLTE/3.0.0/dist/js/demo.js"></script>
+	<script>
+    $.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
+        icons: {
+            time: 'far fa-clock',
+            date: 'far fa-calendar',
+            up: 'fas fa-arrow-up',
+            down: 'fas fa-arrow-down',
+            previous: 'fas fa-chevron-left',
+            next: 'fas fa-chevron-right',
+            today: 'far fa-calendar-check-o',
+            clear: 'far fa-trash',
+            close: 'far fa-times'
+        } });
+
+    $('#datetimepicker1').datetimepicker({
+        format: 'DD/MM/YYYY h:mm A'
+    });
+</script>
+</body>
+</html>
